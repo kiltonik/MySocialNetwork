@@ -5,5 +5,5 @@ import java.util.List;
 import data.response.PostDTO;
 
 public interface IPostRepository {
-    public List<PostDTO> loadPosts();
+    List<PostDTO> loadPosts();
 }

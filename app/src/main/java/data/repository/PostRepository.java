@@ -42,7 +42,7 @@ public class PostRepository implements IPostRepository{
 
             @Override
             public void onFailure(Call<List<PostDTO>> call, Throwable t) {
-
+                data = null;
             }
         });
         return data;
