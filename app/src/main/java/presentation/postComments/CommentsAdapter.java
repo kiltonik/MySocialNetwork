@@ -2,6 +2,7 @@ package presentation.postComments;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,18 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     private List<CommentDTO> data = new ArrayList<>();
 
+    private CommentClickListener listener;
+
     @NonNull
     @Override
     public CommentsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.comment, viewGroup, false);
+        v.setOnClickListener(v1 -> listener.onCommentClicked());
         return new ViewHolder(v);
+    }
+
+    public CommentsAdapter(CommentClickListener listener){
+        this.listener = listener;
     }
 
     @Override

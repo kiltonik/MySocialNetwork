@@ -16,9 +16,9 @@ import java.util.List;
 import data.response.PostDTO;
 import presentation.add_post.AddPostActivity;
 import butterknife.ButterKnife;
-import presentation.add_post.PostForCommentsParcelable;
 import presentation.add_post.PostParcelable;
 import presentation.postComments.PostCommentsActivity;
+import presentation.postComments.PostForCommentsParcelable;
 import v.mysocialnetwork.R;
 
 public final class FeedActivity extends MvpAppCompatActivity implements FeedView{
@@ -42,8 +42,6 @@ public final class FeedActivity extends MvpAppCompatActivity implements FeedView
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
-//        adapter = new FeedAdapter(presenter.providePosts());
-//        recyclerView.setAdapter(adapter);
 
     }
 

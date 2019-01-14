@@ -23,6 +23,11 @@
                 <category android:name="android.intent.category.INFO"/>
             </intent-filter>
         </activity>
+        <activity android:name="presentation.postComments.PostCommentsActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.INFO"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

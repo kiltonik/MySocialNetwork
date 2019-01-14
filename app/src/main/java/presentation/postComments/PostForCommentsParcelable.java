@@ -1,4 +1,4 @@
-package presentation.add_post;
+package presentation.postComments;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,9 +9,9 @@ public class PostForCommentsParcelable implements Parcelable {
 
     private PostDTO post;
 
-    public static final Creator<PostParcelable> CREATOR = new Creator<PostParcelable>() {
+    public static final Creator<PostForCommentsParcelable> CREATOR = new Creator<PostForCommentsParcelable>() {
         @Override
-        public PostParcelable createFromParcel(Parcel source) {
+        public PostForCommentsParcelable createFromParcel(Parcel source) {
             String title = source.readString();
             String body = source.readString();
             String author = source.readString();
@@ -21,12 +21,12 @@ public class PostForCommentsParcelable implements Parcelable {
             post.userId = Integer.valueOf(author);
             post.body = body;
             post.title = title;
-            return new PostParcelable(post);
+            return new PostForCommentsParcelable(post);
         }
 
         @Override
-        public PostParcelable[] newArray(int size) {
-            return new PostParcelable[0];
+        public PostForCommentsParcelable[] newArray(int size) {
+            return new PostForCommentsParcelable[0];
         }
     };
 
