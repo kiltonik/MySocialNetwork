@@ -7,19 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import data.response.PostDTO;
 import v.mysocialnetwork.R;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
-    List<String[]> data;
-
-    public FeedAdapter(List<String[]> data){
-        this.data = data;
-    }
-
-
+    private List<PostDTO> data = new ArrayList<>();
 
     @NonNull
     @Override
@@ -30,10 +26,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FeedAdapter.ViewHolder viewHolder, int i) {
-        String[] s = data.get(i);
-        viewHolder.title.setText(s[0]);
-        viewHolder.post.setText(s[1]);
-        viewHolder.author.setText(s[2]);
+        PostDTO post = data.get(i);
+        viewHolder.title.setText(post.title);
+        viewHolder.author.setText(String.valueOf(post.userId));
+        viewHolder.post.setText(post.body);
+
     }
 
     @Override
@@ -47,9 +44,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         TextView author;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+//            itemView.setOnClickListener(v -> );
             title = itemView.findViewById(R.id.title);
             post = itemView.findViewById(R.id.post_content);
             author = itemView.findViewById(R.id.author);
         }
+    }
+
+    public void setItems(List<PostDTO> newData){
+        data.addAll(newData);
+        notifyDataSetChanged();
+    }
+
+    public void clearItems(){
+        data.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addNewPost(PostDTO newData){
+        data.add(0, newData);
+        notifyDataSetChanged();
     }
 }

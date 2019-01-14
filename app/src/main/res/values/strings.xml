@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Social Network</string>
+    <string name="your_name">Your id</string>
+    <string name="title_of_the_post">Title of the post</string>
+    <string name="body_of_the_post">Body of the post</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_post">Save post</string>
 </resources>

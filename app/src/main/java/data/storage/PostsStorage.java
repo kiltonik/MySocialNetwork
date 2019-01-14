@@ -7,6 +7,7 @@ import data.response.PostDTO;
 
 public class PostsStorage implements Provider{
     List<PostDTO> data;
+
     public void savePosts(List<PostDTO> new_data){
         data = new_data;
     }
@@ -17,5 +18,9 @@ public class PostsStorage implements Provider{
 
     public void addPostToBD(PostDTO post){
         data.add(post);
+    }
+
+    public void saveOnePost(PostDTO new_post){
+        data.add(new_post);
     }
 }

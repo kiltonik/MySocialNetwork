@@ -5,36 +5,39 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
-import domain.interactor.ProvidePostsInteractor;
+import data.response.PostDTO;
+import domain.interactor.PostsInteractor;
 
-import static domain.interactor.ProvidePostsInteractor.getPosts;
 
 
 @InjectViewState
-public class FeedPresenter extends MvpPresenter<FeedView> {
-    ArrayList<String[]> data = new ArrayList<>(Arrays.<String[]>asList(new String[]{"title 1", "post 1", "author 1"}));
+public class FeedPresenter extends MvpPresenter<FeedView> implements FeedPresenterCallback {
+
+    PostsInteractor interactor = new PostsInteractor();
+
 
     @Override
     protected void onFirstViewAttach() {
-        super.onFirstViewAttach();
+        interactor.getPosts(this);
         Log.d("onFirstViewAttach","complete");
     }
 
-    @Override
-    public void attachView(FeedView view) {
-        super.attachView(view);
+    public void providePosts(){
+        interactor.getPosts(this);
     }
 
     @Override
-    public void detachView(FeedView view) {
-        super.detachView(view);
+    public void callingPresenterBackOnSuccess(List<PostDTO> data) {
+        Log.d("presenter","callback on success");
+        getViewState().showPosts(data);
+        Log.d("presenter","new posts were shown");
     }
 
-    public ArrayList<String[]> providePosts(){
-        return getPosts();
+    @Override
+    public void callingPresenterBackOnFailure() {
+        Log.d("presenter","callback on failure");
     }
 }
 
