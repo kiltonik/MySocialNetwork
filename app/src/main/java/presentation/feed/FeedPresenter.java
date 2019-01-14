@@ -8,14 +8,14 @@ import com.arellomobile.mvp.MvpPresenter;
 import java.util.List;
 
 import data.response.PostDTO;
-import domain.interactor.PostsInteractor;
+import domain.interactor.Interactor;
 
 
 
 @InjectViewState
 public class FeedPresenter extends MvpPresenter<FeedView> implements FeedPresenterCallback {
 
-    PostsInteractor interactor = new PostsInteractor();
+    Interactor interactor = new Interactor();
 
 
     @Override

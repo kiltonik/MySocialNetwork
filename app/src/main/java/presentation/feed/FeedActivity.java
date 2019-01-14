@@ -6,24 +6,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Adapter;
 import android.widget.Button;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 
-import org.parceler.Parcels;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import data.response.PostDTO;
 import presentation.add_post.AddPostActivity;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import presentation.add_post.PostForCommentsParcelable;
 import presentation.add_post.PostParcelable;
+import presentation.postComments.PostCommentsActivity;
 import v.mysocialnetwork.R;
 
 public final class FeedActivity extends MvpAppCompatActivity implements FeedView{
@@ -39,9 +34,13 @@ public final class FeedActivity extends MvpAppCompatActivity implements FeedView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         ButterKnife.bind(this);
-        recyclerView = findViewById(R.id.recycler);
+        recyclerView = findViewById(R.id.feed_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new FeedAdapter();
+        adapter = new FeedAdapter((v, position) -> {
+            Intent intent = new Intent(this, PostCommentsActivity.class);
+            intent.putExtra("post", new PostForCommentsParcelable(adapter.getData().get(position)));
+            startActivity(intent);
+        });
         recyclerView.setAdapter(adapter);
 //        adapter = new FeedAdapter(presenter.providePosts());
 //        recyclerView.setAdapter(adapter);

@@ -5,14 +5,12 @@ import android.os.Parcelable;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.parceler.Parcels;
-
 import data.response.PostDTO;
-import domain.interactor.PostsInteractor;
+import domain.interactor.Interactor;
 
 @InjectViewState
 public class AddPostPresenter extends MvpPresenter<AddPostView> {
-    PostsInteractor interactor = new PostsInteractor();
+    Interactor interactor = new Interactor();
     public Parcelable saveNewPost(String title, String body, String author){
         PostDTO post = new PostDTO();
         post.title = title;

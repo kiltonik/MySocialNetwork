@@ -20,19 +20,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostRepository implements IPostRepository{
 
-    private static final String URL = "https://jsonplaceholder.typicode.com";
-
     @Nullable
     public void loadPosts(FeedPresenterCallback callback){
-        Log.d("repository","works");
+        final String URL = "https://jsonplaceholder.typicode.com";
+        Log.d("post repository","works");
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            PostApi post_api = retrofit.create(PostApi.class);
 
-            Call<List<PostDTO>> call = post_api.posts();
+            PostApi postApi = retrofit.create(PostApi.class);
+
+            Call<List<PostDTO>> call = postApi.posts();
 
             call.enqueue(new Callback<List<PostDTO>>() {
                 @Override

@@ -17,11 +17,19 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     private List<PostDTO> data = new ArrayList<>();
 
+    private FeedClickListener listener;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.post, viewGroup, false);
-        return new ViewHolder(v);
+        final ViewHolder viewHolder = new ViewHolder(v);
+        v.setOnClickListener(v1 -> listener.onItemClicked(v1, viewHolder.getAdapterPosition()));
+        return viewHolder;
+    }
+
+    public FeedAdapter(FeedClickListener listener){
+        this.listener = listener;
     }
 
     @Override
@@ -44,7 +52,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         TextView author;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            itemView.setOnClickListener(v -> );
             title = itemView.findViewById(R.id.title);
             post = itemView.findViewById(R.id.post_content);
             author = itemView.findViewById(R.id.author);
@@ -54,6 +61,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void setItems(List<PostDTO> newData){
         data.addAll(newData);
         notifyDataSetChanged();
+    }
+
+    public List<PostDTO> getData() {
+        return data;
     }
 
     public void clearItems(){
