@@ -2,40 +2,36 @@ package presentation.add_post;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 
-import butterknife.BindView;
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import presentation.App;
 import v.mysocialnetwork.R;
 
 public final class AddPostActivity extends MvpAppCompatActivity implements AddPostView{
 
+    @Inject
     @InjectPresenter
     AddPostPresenter presenter;
 
-//    @BindView(R.id.title)
-//    EditText title;
-//
-//    @BindView(R.id.name)
-//    EditText author;
-//
-//    @BindView(R.id.body)
-//    EditText body;
+    @ProvidePresenter
+    AddPostPresenter provideAddPostPresenter(){
+        return presenter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_post);
         ButterKnife.bind(this);
+        App.getAppComponent().injectsAddPost(this);
         EditText title = findViewById(R.id.title);
         EditText author = findViewById(R.id.name);
         EditText body = findViewById(R.id.body);

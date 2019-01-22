@@ -7,7 +7,8 @@ import data.response.PostDTO;
 
 public class PostParcelable implements Parcelable {
 
-    private PostDTO post;
+    private final PostDTO post;
+
 
     public static final Creator<PostParcelable> CREATOR = new Creator<PostParcelable>() {
         @Override

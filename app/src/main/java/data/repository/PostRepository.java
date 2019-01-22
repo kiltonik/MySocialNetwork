@@ -7,6 +7,8 @@ import android.util.Log;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import data.response.PostApi;
 import data.response.PostDTO;
 import domain.repository.IPostRepository;
@@ -20,17 +22,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PostRepository implements IPostRepository{
 
+    private final PostApi postApi;
+
+    @Inject
+    PostRepository(PostApi postApi){
+        this.postApi = postApi;
+    }
+
+
     @Nullable
     public void loadPosts(FeedPresenterCallback callback){
         final String URL = "https://jsonplaceholder.typicode.com";
         Log.d("post repository","works");
 
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            PostApi postApi = retrofit.create(PostApi.class);
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl(URL)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//
+//            PostApi postApi = retrofit.create(PostApi.class);
 
             Call<List<PostDTO>> call = postApi.posts();
 

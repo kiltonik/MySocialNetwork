@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import data.response.PostDTO;
+import presentation.App;
 import presentation.add_post.AddPostActivity;
 import butterknife.ButterKnife;
 import presentation.add_post.PostParcelable;
@@ -23,17 +26,26 @@ import v.mysocialnetwork.R;
 
 public final class FeedActivity extends MvpAppCompatActivity implements FeedView{
 
+    @Inject
     @InjectPresenter
     FeedPresenter presenter;
+
+    @ProvidePresenter
+    FeedPresenter provideFeedPresenter(){
+        return presenter;
+    }
 
     private FeedAdapter adapter;
     private RecyclerView recyclerView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.getAppComponent().injectsFeed(this);
         setContentView(R.layout.activity_feed);
         ButterKnife.bind(this);
+        Log.d("App", "works");
         recyclerView = findViewById(R.id.feed_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new FeedAdapter((v, position) -> {
@@ -42,7 +54,7 @@ public final class FeedActivity extends MvpAppCompatActivity implements FeedView
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
-
+        provideFeedPresenter().onFirstViewAttach();
     }
 
     @Override

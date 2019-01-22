@@ -4,19 +4,27 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.Module;
+import dagger.Provides;
 import data.response.PostDTO;
 import domain.interactor.Interactor;
-
 
 
 @InjectViewState
 public class FeedPresenter extends MvpPresenter<FeedView> implements FeedPresenterCallback {
 
-    Interactor interactor = new Interactor();
+    private final Interactor interactor;
 
+    @Inject
+    FeedPresenter(Interactor interactor){
+        this.interactor = interactor;
+    }
 
     @Override
     protected void onFirstViewAttach() {
